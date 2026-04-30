@@ -49,13 +49,13 @@ export default function Home() {
             </div>
             <div className="flex flex-col">
               <span className="text-[11px] font-bold text-black tracking-widest uppercase mb-1">Call Us Now</span>
-              <span className="text-[15px] font-medium text-gray-500">+91 0000 000000</span>
+              <span className="text-[15px] font-medium text-gray-500">+91 9821255300</span>
             </div>
           </div>
         </div>
       </header>
 
-      <section className="relative w-full h-[110vh] min-h-[900px] overflow-hidden bg-gradient-to-b from-[#fdfdfd] to-[#e4e4e4] flex flex-col justify-end">
+      <section className="relative w-full h-[110vh] min-h-[900px] overflow-hidden bg-linear-to-b from-[#fdfdfd] to-[#e4e4e4] flex flex-col justify-end">
         <motion.div initial={{ y: "50%", opacity: 0 }} animate={{ y: 0, opacity: 0.9 }} transition={{ delay: 1.2, duration: 1.2, ease: "easeOut" }} className="absolute inset-0 flex items-center justify-center pointer-events-none pb-140 select-none">
           <h1 className="font-serif text-black opacity-90 text-center leading-none" style={{ fontSize: "clamp(80px, 20vw, 350px)" }}>ELDECO</h1>
         </motion.div>
@@ -97,8 +97,8 @@ export default function Home() {
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-24 mb-20">
             <div className="lg:w-1/4 shrink-0">
               <h4 className="text-[13px] font-medium leading-relaxed mb-4">Project Overview</h4>
-              <div className="w-full h-[1px] bg-gray-200 relative">
-                <div className="absolute top-0 left-0 w-12 h-[1px] bg-black"></div>
+              <div className="w-full h-px bg-gray-200 relative">
+                <div className="absolute top-0 left-0 w-12 h-px bg-black"></div>
               </div>
             </div>
             <div className="lg:w-3/4">
@@ -119,15 +119,15 @@ export default function Home() {
               <div className="relative pb-10">
                 <h3 className="text-[64px] md:text-[80px] font-medium tracking-tighter leading-none mb-2"><AnimatedCounter to={4} /></h3>
                 <p className="text-[18px] font-serif text-gray-800">Apartments per floor</p>
-                <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gray-200 mt-8">
-                  <div className="absolute top-0 left-0 w-16 h-[2px] bg-black -mt-[0.5px]"></div>
+                <div className="absolute bottom-0 left-0 w-full h-px bg-gray-200 mt-8">
+                  <div className="absolute top-0 left-0 w-16 h-[2px] bg-black mt-[-0.5px]"></div>
                 </div>
               </div>
               <div className="relative pb-10">
                 <h3 className="text-[64px] md:text-[80px] font-medium tracking-tighter leading-none mb-2">1.3</h3>
                 <p className="text-[18px] font-serif text-gray-800">Acres of Greens</p>
-                <div className="absolute bottom-0 left-0 w-full h-[1px] bg-gray-200 mt-8">
-                  <div className="absolute top-0 left-0 w-16 h-[2px] bg-black -mt-[0.5px]"></div>
+                <div className="absolute bottom-0 left-0 w-full h-px bg-gray-200 mt-8">
+                  <div className="absolute top-0 left-0 w-16 h-[2px] bg-black mt-[-0.5px]"></div>
                 </div>
               </div>
               <div className="relative">
@@ -247,7 +247,7 @@ function CarouselSection() {
             {CAROUSEL_DATA.map((item, idx) => (
               <div key={idx} ref={idx === 0 ? itemRef : null} className="shrink-0 w-[85vw] md:w-[calc((100vw-8rem-3rem)/3)] lg:w-[calc((1400px-8rem-3rem)/3)] h-[400px] md:h-[550px] overflow-hidden rounded-sm group relative cursor-pointer shadow-2xl">
                 <img src={item.src} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" alt={item.title} />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#111] via-[#111]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8 md:p-10">
+                <div className="absolute inset-0 bg-linear-to-t from-[#111] via-[#111]/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8 md:p-10">
                   <motion.div initial={{ y: 20, opacity: 0 }} whileInView={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, delay: 0.1 }}>
                     <span className="text-[10px] md:text-[11px] font-semibold uppercase tracking-[0.2em] text-gray-300 mb-2 block">{item.location}</span>
                     <h3 className="text-[24px] md:text-[32px] font-serif text-white mb-3 leading-tight">{item.title}</h3>
@@ -288,7 +288,7 @@ function WhyChooseSection() {
             <h2 className="text-[48px] md:text-[64px] font-serif leading-[1.1] text-black">Your Limitless Life Awaits.</h2>
           </div>
         </div>
-        <div className="w-full h-[1px] bg-gray-200 mb-16"></div>
+        <div className="w-full h-px bg-gray-200 mb-16"></div>
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
           <div className="lg:col-span-5 flex flex-col justify-center">
             {FEATURES.map((feature, i) => (
@@ -302,7 +302,7 @@ function WhyChooseSection() {
             ))}
           </div>
           <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }} className="lg:col-span-7 h-full flex flex-col justify-center">
-            <div className="w-full aspect-[4/3] md:aspect-[16/10] relative rounded-sm overflow-hidden group cursor-pointer shadow-2xl">
+            <div className="w-full aspect-4/3 md:aspect-16/10 relative rounded-sm overflow-hidden group cursor-pointer shadow-2xl">
               <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="Property Video Cover" />
               <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500 flex items-center justify-center">
                 <div className="w-20 h-20 md:w-24 md:h-24 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-transform duration-500 group-hover:scale-110 shadow-lg border border-white/30">
@@ -334,7 +334,7 @@ function VideoSection() {
             Experience the Pinnacle <br className="hidden md:block" /> of Luxury Living
           </motion.h2>
         </div>
-        <motion.div ref={containerRef} style={{ scale, opacity }} className="relative w-full aspect-[16/9] md:aspect-[21/9] rounded-sm overflow-hidden group cursor-pointer shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
+        <motion.div ref={containerRef} style={{ scale, opacity }} className="relative w-full aspect-video md:aspect-21/9 rounded-sm overflow-hidden group cursor-pointer shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
           <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="Cinematic Video Cover" />
           <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500 flex items-center justify-center">
             <div className="relative">
@@ -344,7 +344,7 @@ function VideoSection() {
               </div>
             </div>
           </div>
-          <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black/80 to-transparent pointer-events-none"></div>
+          <div className="absolute bottom-0 left-0 w-full h-1/3 bg-linear-to-t from-black/80 to-transparent pointer-events-none"></div>
         </motion.div>
       </div>
     </section>
@@ -410,7 +410,7 @@ function TestimonialSection() {
           {/* Right Column */}
           <div className="flex flex-col justify-start lg:pt-2">
             <div className="mb-12">
-               <span className="text-[13px] font-semibold text-[#111] mb-6 block border-b border-gray-200 inline-block pb-2">Client Trust Stories</span>
+               <span className="text-[13px] font-semibold text-[#111] mb-6 border-b border-gray-200 inline-block pb-2">Client Trust Stories</span>
                <h2 className="text-[48px] lg:text-[56px] font-serif text-[#111] leading-[1.1]">Trusted by Global<br/>Luxury Clients</h2>
             </div>
             
@@ -470,9 +470,9 @@ function TestimonialSection() {
         
         {/* Bottom text */}
         <div className="mt-24 md:mt-32 flex items-center justify-center">
-           <div className="h-[1px] bg-gray-200 flex-1 max-w-[300px] lg:max-w-[400px]"></div>
+           <div className="h-px bg-gray-200 flex-1 max-w-[300px] lg:max-w-[400px]"></div>
            <span className="px-6 text-[12px] md:text-[13px] font-bold text-[#111] tracking-wide text-center">Trusted by 900+ Premium Real Estate Clients</span>
-           <div className="h-[1px] bg-gray-200 flex-1 max-w-[300px] lg:max-w-[400px]"></div>
+           <div className="h-px bg-gray-200 flex-1 max-w-[300px] lg:max-w-[400px]"></div>
         </div>
       </div>
     </section>
@@ -525,9 +525,9 @@ function AmenitiesSection() {
     <section className="w-full bg-white py-24 md:py-32">
       <div className="max-w-[1400px] mx-auto px-6">
         <div className="flex items-center justify-center gap-4 mb-4">
-          <div className="w-12 h-[1px] bg-black/20"></div>
+          <div className="w-12 h-px bg-black/20"></div>
           <span className="text-[11px] font-bold tracking-[0.2em] uppercase text-black/60">What We Offer</span>
-          <div className="w-12 h-[1px] bg-black/20"></div>
+          <div className="w-12 h-px bg-black/20"></div>
         </div>
         <h2 className="text-[42px] md:text-[56px] font-serif text-center text-[#111] leading-none">House Amenities</h2>
         
@@ -569,7 +569,7 @@ function AmenitiesSection() {
           <motion.div 
             animate={{ y: [-15, 15, -15] }}
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            className="relative md:absolute md:right-[4%] md:top-[-40px] w-[90%] mx-auto md:mx-0 md:w-[45%] h-[350px] md:h-[460px] z-10 shadow-2xl -mt-10 md:mt-0 overflow-hidden border-8 md:border-[12px] border-white"
+            className="relative md:absolute md:right-[4%] md:top-[-40px] w-[90%] mx-auto md:mx-0 md:w-[45%] h-[350px] md:h-[460px] z-10 shadow-2xl -mt-10 md:mt-0 overflow-hidden border-8 md:border-12 border-white"
           >
              <AnimatePresence mode="wait">
                <motion.img
