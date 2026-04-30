@@ -13,7 +13,7 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Arvon - Luxury Real Estate",
+  title: "Eldeco - Luxury Real Estate",
   description: "Designed for Refined Living Standards",
 };
 

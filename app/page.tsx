@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { ChevronDown, Phone, ArrowRight, Play, ChevronRight } from "lucide-react";
+import { ChevronDown, Phone, ArrowRight, Play, ChevronRight, Waves, Dumbbell, Users, TreePine, Smile, Activity } from "lucide-react";
 import { motion, useInView, useScroll, useTransform, AnimatePresence } from "framer-motion";
+
 
 function AnimatedCounter({ from = 0, to, duration = 2 }: { from?: number, to: number, duration?: number }) {
   const [count, setCount] = useState(from);
@@ -164,6 +165,7 @@ export default function Home() {
 
       <CarouselSection />
       <WhyChooseSection />
+      <AmenitiesSection />
       <VideoSection />
       <TestimonialSection />
     </div>
@@ -358,7 +360,7 @@ const TESTIMONIALS_DATA = [
     stars: 5,
   },
   {
-    quote: "The level of professionalism and attention to detail is unmatched. Arvon helped us find our dream home without any hassle. A truly white-glove service.",
+    quote: "The level of professionalism and attention to detail is unmatched. Eldeco helped us find our dream home without any hassle. A truly white-glove service.",
     name: "Sarah Jenkins",
     title: "CEO, TechFlow",
     image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
@@ -391,7 +393,7 @@ function TestimonialSection() {
           <div className="flex flex-col lg:justify-between h-full">
             <div className="text-right lg:border-r border-gray-200 lg:pr-10 lg:py-2 max-w-md ml-auto flex flex-col items-end">
               <p className="text-[15px] leading-[1.8] text-gray-500 mb-6 font-medium">
-                Our clients value discretion, expertise, and results.<br className="hidden md:block" /> Here's what they say about their experience working<br className="hidden md:block" /> with Arvon in the luxury real estate market.
+                Our clients value discretion, expertise, and results.<br className="hidden md:block" /> Here's what they say about their experience working<br className="hidden md:block" /> with Eldeco in the luxury real estate market.
               </p>
               <a href="#" className="inline-flex items-center text-[11px] font-bold tracking-[0.15em] text-gray-800 uppercase hover:text-black transition-colors group">
                 MORE TESTIMONIALS
@@ -472,6 +474,118 @@ function TestimonialSection() {
            <span className="px-6 text-[12px] md:text-[13px] font-bold text-[#111] tracking-wide text-center">Trusted by 900+ Premium Real Estate Clients</span>
            <div className="h-[1px] bg-gray-200 flex-1 max-w-[300px] lg:max-w-[400px]"></div>
         </div>
+      </div>
+    </section>
+  );
+}
+
+const AMENITIES_DATA = [
+  {
+    title: "Swimming Pool",
+    iconSrc: "/swimming-pool.png",
+    desc: "A lifestyle designed for your wellbeing. As highlighted in the brochure, residents can enjoy a complete fitness routine within the community itself.",
+    image: "https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    title: "Gymnasium",
+    iconSrc: "/weightlifting.png",
+    desc: "Fully equipped Gymnasium. Live fitness and live active with state-of-the-art equipment designed for your daily wellbeing and complete fitness routine.",
+    image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    title: "Club Latitude",
+    iconSrc: "/night-club.png",
+    desc: "Spaces designed for togetherness. Featuring a Party Hall where, from family celebrations to social gatherings, every moment becomes memorable here.",
+    image: "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    title: "Gardens",
+    iconSrc: "/park.png",
+    desc: "Wake up to lush landscapes and open greens. The project emphasizes daily connection with nature, making every morning refreshing and every evening calming.",
+    image: "https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    title: "Play Areas",
+    iconSrc: "/playground.png",
+    desc: "Perfect for families and children. Dedicated play areas and open activity zones ensure safe, joyful, and vibrant community living.",
+    image: "https://images.unsplash.com/photo-1595787142842-7404bc60470d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+  },
+  {
+    title: "Sports Court",
+    iconSrc: "/sport.png",
+    desc: "Multipurpose Sports Court and Badminton Court. A perfect space to engage in sports, stay active, and enjoy a limitless life.",
+    image: "https://images.unsplash.com/photo-1628731599422-0d322cebb411?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80"
+  }
+];
+
+function AmenitiesSection() {
+  const [activeTab, setActiveTab] = useState(0);
+
+  return (
+    <section className="w-full bg-white py-24 md:py-32">
+      <div className="max-w-[1400px] mx-auto px-6">
+        <div className="flex items-center justify-center gap-4 mb-4">
+          <div className="w-12 h-[1px] bg-black/20"></div>
+          <span className="text-[11px] font-bold tracking-[0.2em] uppercase text-black/60">What We Offer</span>
+          <div className="w-12 h-[1px] bg-black/20"></div>
+        </div>
+        <h2 className="text-[42px] md:text-[56px] font-serif text-center text-[#111] leading-none">House Amenities</h2>
+        
+        <div className="flex flex-wrap justify-center gap-2 md:gap-6 max-w-[1000px] mx-auto mt-16 px-2">
+          {AMENITIES_DATA.map((item, idx) => {
+            const isActive = activeTab === idx;
+            return (
+              <button 
+                key={idx} 
+                onClick={() => setActiveTab(idx)}
+                className={`flex flex-col items-center justify-center w-[110px] h-[110px] md:w-[140px] md:h-[140px] transition-all duration-300 ${isActive ? 'border-2 border-black bg-white shadow-xl scale-105 z-10' : 'border border-transparent hover:border-gray-200 hover:bg-gray-50'}`}
+              >
+                <img src={item.iconSrc} alt={item.title} className={`mb-4 transition-all duration-300 ${isActive ? 'w-10 h-10 opacity-100 grayscale-0' : 'w-9 h-9 opacity-50 grayscale'}`} />
+                <span className={`text-[10px] md:text-[11px] font-bold uppercase tracking-widest text-center ${isActive ? 'text-black' : 'text-gray-500'}`}>{item.title}</span>
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="relative max-w-[1200px] mx-auto mt-20 md:mt-32 mb-10 md:mb-16 flex flex-col md:block">
+          <div className="w-full md:w-[90%] bg-[#111111] pt-16 pb-24 px-8 md:pt-0 md:pb-0 md:pl-24 md:pr-[50%] md:h-[500px] flex flex-col justify-center relative z-0 shadow-2xl">
+             <AnimatePresence mode="wait">
+               <motion.div
+                 key={activeTab}
+                 initial={{ opacity: 0, y: 20 }}
+                 animate={{ opacity: 1, y: 0 }}
+                 exit={{ opacity: 0, y: -20 }}
+                 transition={{ duration: 0.4 }}
+               >
+                 <h3 className="text-[36px] md:text-[46px] font-serif text-white mb-6 leading-tight tracking-wide">{AMENITIES_DATA[activeTab].title}</h3>
+                 <p className="text-[15px] leading-[1.8] text-white/70 mb-10 max-w-md font-light">{AMENITIES_DATA[activeTab].desc}</p>
+                 <button className="bg-white text-black px-8 py-4 text-[11px] font-bold tracking-[0.2em] uppercase hover:bg-gray-200 transition-colors shadow-lg rounded-full">
+                   Get More Info
+                 </button>
+               </motion.div>
+             </AnimatePresence>
+          </div>
+          
+          <motion.div 
+            animate={{ y: [-15, 15, -15] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            className="relative md:absolute md:right-[4%] md:top-[-40px] w-[90%] mx-auto md:mx-0 md:w-[45%] h-[350px] md:h-[460px] z-10 shadow-2xl -mt-10 md:mt-0 overflow-hidden border-8 md:border-[12px] border-white"
+          >
+             <AnimatePresence mode="wait">
+               <motion.img
+                 key={activeTab}
+                 initial={{ opacity: 0, scale: 1.05 }}
+                 animate={{ opacity: 1, scale: 1 }}
+                 exit={{ opacity: 0, scale: 0.95 }}
+                 transition={{ duration: 0.5 }}
+                 src={AMENITIES_DATA[activeTab].image} 
+                 alt={AMENITIES_DATA[activeTab].title}
+                 className="w-full h-full object-cover absolute inset-0" 
+               />
+             </AnimatePresence>
+          </motion.div>
+        </div>
+
       </div>
     </section>
   );
