@@ -19,6 +19,26 @@ body {
   font-family: var(--font-sans), sans-serif;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: #ffffff !important;
+  caret-color: #ffffff;
+  box-shadow: 0 0 0px 1000px #090909 inset !important;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(255, 255, 255, 0.35);
+}
+
 .text-shadow-premium {
   text-shadow: 
     0 2px 4px rgba(0, 0, 0, 0.9),

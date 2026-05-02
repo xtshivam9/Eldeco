@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import { ChevronDown, Phone, ArrowRight, Play, ChevronRight, Waves, Dumbbell, Users, TreePine, Smile, Activity } from "lucide-react";
+import { ChevronDown, Phone, ArrowRight, Play, ChevronRight, Waves, Dumbbell, Users, TreePine, Smile, Activity, ArrowUp } from "lucide-react";
 import { motion, useInView, useScroll, useTransform, AnimatePresence } from "framer-motion";
 
 
-function AnimatedCounter({ from = 0, to, duration = 2 }: { from?: number, to: number, duration?: number }) {
+function AnimatedCounter({ from = 0, to, duration = 2, decimals = 0 }: { from?: number, to: number, duration?: number, decimals?: number }) {
   const [count, setCount] = useState(from);
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-50px" });
@@ -16,7 +16,7 @@ function AnimatedCounter({ from = 0, to, duration = 2 }: { from?: number, to: nu
     const step = (timestamp: number) => {
       if (!startTimestamp) startTimestamp = timestamp;
       const progress = Math.min((timestamp - startTimestamp) / (duration * 1000), 1);
-      setCount(Math.floor(progress * (to - from) + from));
+      setCount(progress * (to - from) + from);
       if (progress < 1) {
         window.requestAnimationFrame(step);
       }
@@ -24,7 +24,7 @@ function AnimatedCounter({ from = 0, to, duration = 2 }: { from?: number, to: nu
     window.requestAnimationFrame(step);
   }, [inView, from, to, duration]);
 
-  return <span ref={ref}>{count}</span>;
+  return <span ref={ref}>{count.toFixed(decimals)}</span>;
 }
 
 export default function Home() {
@@ -57,7 +57,7 @@ export default function Home() {
 
       <section className="relative w-full h-[110vh] min-h-[900px] overflow-hidden bg-linear-to-b from-[#fdfdfd] to-[#e4e4e4] flex flex-col justify-end">
         <motion.div initial={{ y: "50%", opacity: 0 }} animate={{ y: 0, opacity: 0.9 }} transition={{ delay: 1.2, duration: 1.2, ease: "easeOut" }} className="absolute inset-0 flex items-center justify-center pointer-events-none pb-140 select-none">
-          <h1 className="font-serif text-black opacity-90 text-center leading-none" style={{ fontSize: "clamp(80px, 20vw, 350px)" }}>ELDECO</h1>
+          <h1 className="font-serif text-emerald-900 opacity-95 text-center leading-none" style={{ fontSize: "clamp(80px, 20vw, 350px)" }}>ELDECO</h1>
         </motion.div>
         <motion.div initial={{ y: "100%" }} animate={{ y: 0 }} transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }} className="absolute bottom-0 left-0 right-0 w-full h-full flex justify-center pointer-events-none z-10">
           <img src="/hero-image.png" alt="Luxury Apartments" className="w-full h-full object-cover object-bottom" />
@@ -167,7 +167,12 @@ export default function Home() {
       <WhyChooseSection />
       <AmenitiesSection />
       <VideoSection />
+      <ProcessSection />
+      <LocationSection />
       <TestimonialSection />
+      <MarqueeSection />
+      <ContactSection />
+      <FooterSection />
     </div>
   );
 }
@@ -269,9 +274,10 @@ function CarouselSection() {
 }
 
 const FEATURES = [
-  { num: "01", title: "Trusted Eldeco Legacy", desc: "Years of experience navigating premium residential markets with trusted quality & execution." },
-  { num: "02", title: "Lucrative Location", desc: "Strategically located at Eldeco City, IIM Road with 10 mins connectivity to Kapurthala market." },
-  { num: "03", title: "Premium Low-Density", desc: "Nature + Luxury integration featuring only 4 units per floor ensuring 3-side open ventilation." }
+  { num: "01", title: "Trusted Eldeco Legacy", desc: "Backed by decades of experience in crafting premium residential communities with unmatched quality and execution." },
+  { num: "02", title: "Prime Location, Lucknow", desc: "Strategically located at the entrance of Eldeco City, IIM Road. Just 10 mins to Kapurthala market, 25 mins to Railway Station, 35 mins to Airport." },
+  { num: "03", title: "Premium Low-Density Living", desc: "Nature + Luxury integration with only 4 apartments per floor, 3-side open homes ensuring maximum ventilation & natural light." },
+  { num: "04", title: "Ready Township Ecosystem", desc: "A well-established township with approx. 1.3 acres of lush greens, near top schools like DPS & Central School, hospitals & daily conveniences." }
 ];
 
 function WhyChooseSection() {
@@ -302,13 +308,11 @@ function WhyChooseSection() {
             ))}
           </div>
           <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true, margin: "-100px" }} transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }} className="lg:col-span-7 h-full flex flex-col justify-center">
-            <div className="w-full aspect-4/3 md:aspect-16/10 relative rounded-sm overflow-hidden group cursor-pointer shadow-2xl">
-              <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="Property Video Cover" />
-              <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500 flex items-center justify-center">
-                <div className="w-20 h-20 md:w-24 md:h-24 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-transform duration-500 group-hover:scale-110 shadow-lg border border-white/30">
-                  <Play size={32} className="ml-2 fill-white" />
-                </div>
-              </div>
+            <div className="w-full aspect-video relative rounded-sm overflow-hidden shadow-2xl">
+              <video autoPlay muted loop playsInline poster="/hero-image.png" className="w-full h-full object-cover transition-transform duration-1000">
+                <source src="/2nd.webm" type="video/webm" />
+              </video>
+              <div className="absolute inset-0 bg-linear-to-t from-black/30 to-transparent pointer-events-none" />
             </div>
           </motion.div>
         </div>
@@ -335,144 +339,399 @@ function VideoSection() {
           </motion.h2>
         </div>
         <motion.div ref={containerRef} style={{ scale, opacity }} className="relative w-full aspect-video md:aspect-21/9 rounded-sm overflow-hidden group cursor-pointer shadow-[0_20px_50px_rgba(0,0,0,0.5)]">
-          <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="Cinematic Video Cover" />
-          <div className="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500 flex items-center justify-center">
-            <div className="relative">
-              <div className="absolute inset-0 bg-white/30 rounded-full animate-ping opacity-75 duration-1000"></div>
-              <div className="w-24 h-24 md:w-32 md:h-32 bg-white/10 backdrop-blur-md rounded-full flex items-center justify-center text-white transition-transform duration-500 group-hover:scale-110 shadow-[0_0_40px_rgba(0,0,0,0.3)] border border-white/20 relative z-10">
-                <Play size={40} className="ml-3 fill-white" />
-              </div>
-            </div>
-          </div>
+          <video autoPlay muted loop playsInline poster="/hero-image.png" className="w-full h-full object-cover transition-transform duration-1000">
+            <source src="/1.webm" type="video/webm" />
+          </video>
+          <div className="absolute inset-0 bg-black/20 transition-colors duration-500" />
           <div className="absolute bottom-0 left-0 w-full h-1/3 bg-linear-to-t from-black/80 to-transparent pointer-events-none"></div>
         </motion.div>
       </div>
     </section>
   );
 }
-
-const TESTIMONIALS_DATA = [
+const FLOOR_PLAN_DATA = [
   {
-    quote: "Their market knowledge and curated selection truly stood out. We were presented with properties that matched our lifestyle perfectly. An outstanding luxury experience overall.",
-    name: "Michael Chen",
-    title: "Entrepreneur",
-    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-    stars: 5,
+    id: 1,
+    number: "01",
+    title: "CENTRE ONE - 2BHK+2T",
+    description: "Centre One plan — 2BHK + 2 Toilets. See carpet, balcony and built-up areas on the plan.",
+    image: "/2B-2T.jpeg"
   },
   {
-    quote: "The level of professionalism and attention to detail is unmatched. Eldeco helped us find our dream home without any hassle. A truly white-glove service.",
-    name: "Sarah Jenkins",
-    title: "CEO, TechFlow",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-    stars: 5,
+    id: 2,
+    number: "02",
+    title: "SOUTH 1 - 2BHK+2T+STUDY",
+    description: "South 1 plan — 2BHK + 2T + Study. Floor plan shows layout, utility and balcony areas.",
+    image: "/2B-2T-study.jpeg"
   },
   {
-    quote: "From the initial consultation to the final closing, the team demonstrated exceptional expertise and dedication. Highly recommended for luxury real estate.",
-    name: "David & Emma Wright",
-    title: "Real Estate Investors",
-    image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80",
-    stars: 5,
+    id: 3,
+    number: "03",
+    title: "SOUTH 1 - 2BHK+2T",
+    description: "South 1 2BHK plan — compact, well-planned units with balcony and service areas.",
+    image: "/2B-2T-South.jpeg"
+  },
+  {
+    id: 4,
+    number: "04",
+    title: "SOUTH 1 - 3BHK+3T",
+    description: "South 1 3BHK plan — larger family layouts with multiple balconies and expansive living areas.",
+    image: "/3B-3T.jpeg"
+  },
+  {
+    id: 5,
+    number: "05",
+    title: "CENTRE ONE - 3BHK+3T",
+    description: "Centre One 3BHK plan — premium mid-size apartments with well-defined zones.",
+    image: "/3B-3T-centreone.jpeg"
+  },
+  {
+    id: 6,
+    number: "06",
+    title: "CENTRE ONE - 4BHK+3T",
+    description: "Centre One 4BHK plan — the largest configuration with generous living and terrace spaces.",
+    image: "/4B-3T.jpeg"
   }
 ];
 
-function TestimonialSection() {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % TESTIMONIALS_DATA.length);
-    }, 5000);
-    return () => clearInterval(timer);
-  }, []);
+function ProcessSection() {
+  const [activeStep, setActiveStep] = useState(0);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <section className="w-full bg-white py-24 md:py-32 overflow-hidden">
+    <section className="w-full bg-[#F9F9F9] pt-10 pb-4 relative">
       <div className="max-w-[1400px] mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
-          {/* Left Column */}
-          <div className="flex flex-col lg:justify-between h-full">
-            <div className="text-right lg:border-r border-gray-200 lg:pr-10 lg:py-2 max-w-md ml-auto flex flex-col items-end">
-              <p className="text-[15px] leading-[1.8] text-gray-500 mb-6 font-medium">
-                Our clients value discretion, expertise, and results.<br className="hidden md:block" /> Here's what they say about their experience working<br className="hidden md:block" /> with Eldeco in the luxury real estate market.
-              </p>
-              <a href="#" className="inline-flex items-center text-[11px] font-bold tracking-[0.15em] text-gray-800 uppercase hover:text-black transition-colors group">
-                MORE TESTIMONIALS
-                <div className="ml-3 bg-black text-white rounded-full w-[18px] h-[18px] flex items-center justify-center transition-transform group-hover:translate-x-1">
-                  <ChevronRight size={12} strokeWidth={3} />
-                </div>
-              </a>
-            </div>
-            <div className="w-full h-[350px] md:h-[450px] mt-12 lg:mt-24 rounded-sm overflow-hidden">
-              <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80" alt="Luxury Home with Pool" className="w-full h-full object-cover" />
-            </div>
+        <div className="flex flex-col md:flex-row gap-4 h-[500px] md:h-[675px]">
+          {FLOOR_PLAN_DATA.map((step, index) => {
+            const isActive = index === activeStep;
+            
+            return (
+              <motion.div
+                key={step.id}
+                layout
+                onClick={() => setActiveStep(index)}
+                className={`relative rounded-3xl cursor-pointer transition-all duration-500 ease-in-out ${isActive ? 'overflow-hidden flex-[10] bg-[#050505]' : 'overflow-visible flex-[1] min-w-[70px] md:min-w-[85px] bg-white shadow-sm border border-gray-100 hover:shadow-md'}`}
+              >
+                {/* INACTIVE STATE */}
+                {!isActive && (
+                  <motion.div 
+                    initial={{ opacity: 0 }} 
+                    animate={{ opacity: 1 }} 
+                    exit={{ opacity: 0 }} 
+                    className="w-full h-full flex items-center justify-start pl-4 md:pl-5 overflow-visible"
+                  >
+                    <span className="text-[#CDBA93] text-4xl md:text-6xl font-medium font-serif leading-none py-2 transition-transform duration-300 hover:scale-110 whitespace-nowrap inline-block tabular-nums">
+                      {step.number}
+                    </span>
+                  </motion.div>
+                )}
+
+                {/* ACTIVE STATE */}
+                {isActive && (
+                  <motion.div 
+                    initial={{ opacity: 0 }} 
+                    animate={{ opacity: 1 }} 
+                    transition={{ delay: 0.2, duration: 0.4 }}
+                    className="w-full h-full flex flex-col p-10 relative z-10"
+                  >
+                    <div className="flex gap-8 mb-8 max-w-2xl">
+                      <span className="text-[#CDBA93] text-5xl md:text-6xl font-medium font-serif leading-none flex-shrink-0">
+                        {step.number}
+                      </span>
+                      <div>
+                        <h3 className="text-white text-3xl md:text-4xl font-medium mb-3">{step.title}</h3>
+                        <p className="text-white/60 text-lg font-light leading-relaxed">
+                          {step.description}
+                        </p>
+                      </div>
+                    </div>
+                    <div 
+                      className={`flex-1 w-full rounded-2xl overflow-hidden relative shadow-2xl mt-2 ${index > 0 ? 'cursor-pointer group' : ''}`}
+                      onClick={() => { if (index > 0) setIsModalOpen(true); }}
+                    >
+                       <img 
+                         src={step.image} 
+                         alt={step.title} 
+                         className={`w-full h-full object-cover transition-all duration-500 ${index > 0 ? 'opacity-40 blur-md grayscale group-hover:scale-105' : ''}`} 
+                       />
+                       
+                       {index > 0 && (
+                         <div className="absolute inset-0 z-10 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                           <div className="bg-black/80 px-6 py-3 rounded-full text-white text-sm tracking-widest uppercase font-bold flex items-center gap-2 shadow-2xl backdrop-blur-md transform transition-all duration-300 group-hover:scale-105 hover:bg-emerald-400 hover:text-black">
+                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                             Unlock Image
+                           </div>
+                         </div>
+                       )}
+                    </div>
+                  </motion.div>
+                )}
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+
+      <AnimatePresence>
+        {isModalOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
+             <motion.div 
+               initial={{ opacity: 0 }}
+               animate={{ opacity: 1 }}
+               exit={{ opacity: 0 }}
+               onClick={() => setIsModalOpen(false)}
+               className="absolute inset-0 bg-black/60 backdrop-blur-md"
+             />
+             
+             <motion.div 
+               initial={{ opacity: 0, scale: 0.95, y: 20 }}
+               animate={{ opacity: 1, scale: 1, y: 0 }}
+               exit={{ opacity: 0, scale: 0.95, y: 20 }}
+               className="relative z-10 w-full max-w-lg bg-[#0A0A0A] rounded-3xl p-8 md:p-12 shadow-2xl overflow-hidden border border-white/10"
+             >
+                <div className="absolute -top-20 -right-20 w-64 h-64 bg-emerald-400 rounded-full mix-blend-screen filter blur-[90px] opacity-18 pointer-events-none"></div>
+                <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-white rounded-full mix-blend-screen filter blur-[110px] opacity-6 pointer-events-none"></div>
+                
+                <button 
+                  onClick={() => setIsModalOpen(false)}
+                  className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors"
+                >
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+                </button>
+
+                <h3 className="text-3xl font-medium text-white mb-2 tracking-tight">Unlock <span className="bg-gradient-to-r from-emerald-300 via-white to-emerald-400 bg-clip-text text-transparent">Image.</span></h3>
+                <p className="text-gray-400 text-sm font-light leading-relaxed mb-8">
+                  Please provide your details to view the premium property details and gallery.
+                </p>
+                
+                <form className="flex flex-col gap-6 w-full" onSubmit={(e) => { e.preventDefault(); setIsModalOpen(false); }}>
+                  <div className="relative z-0 w-full group">
+                    <input type="text" name="proc_name" id="proc_name" className="block py-3 px-0 w-full text-base text-white bg-transparent border-0 border-b border-gray-700 appearance-none focus:outline-none focus:ring-0 focus:border-emerald-400 peer transition-colors" placeholder=" " required />
+                    <label htmlFor="proc_name" className="peer-focus:font-medium absolute text-base text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-white peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Full Name</label>
+                  </div>
+
+                  <div className="relative z-0 w-full group">
+                    <input type="email" name="proc_email" id="proc_email" className="block py-3 px-0 w-full text-base text-white bg-transparent border-0 border-b border-gray-700 appearance-none focus:outline-none focus:ring-0 focus:border-emerald-400 peer transition-colors" placeholder=" " required />
+                    <label htmlFor="proc_email" className="peer-focus:font-medium absolute text-base text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-white peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email Address</label>
+                  </div>
+
+                  <div className="relative z-0 w-full group">
+                    <input type="tel" name="proc_phone" id="proc_phone" className="block py-3 px-0 w-full text-base text-white bg-transparent border-0 border-b border-gray-700 appearance-none focus:outline-none focus:ring-0 focus:border-emerald-400 peer transition-colors" placeholder=" " required />
+                    <label htmlFor="proc_phone" className="peer-focus:font-medium absolute text-base text-gray-500 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-white peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Mobile Number</label>
+                  </div>
+
+                  <motion.button 
+                    type="submit"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    className="mt-4 w-full bg-white text-black font-semibold text-sm tracking-widest uppercase py-4 rounded-xl hover:bg-emerald-300 transition-colors duration-300 shadow-[0_0_20px_rgba(255,255,255,0.1)] hover:shadow-[0_0_30px_rgba(52,211,153,0.18)]"
+                  >
+                    Unlock Details
+                  </motion.button>
+                </form>
+             </motion.div>
           </div>
-          
-          {/* Right Column */}
-          <div className="flex flex-col justify-start lg:pt-2">
-            <div className="mb-12">
-               <span className="text-[13px] font-semibold text-[#111] mb-6 border-b border-gray-200 inline-block pb-2">Client Trust Stories</span>
-               <h2 className="text-[48px] lg:text-[56px] font-serif text-[#111] leading-[1.1]">Trusted by Global<br/>Luxury Clients</h2>
+        )}
+      </AnimatePresence>
+    </section>
+  );
+}
+
+function TestimonialSection() {
+  const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const [isImageRevealed, setIsImageRevealed] = useState(false);
+  const testimonials = [
+    {
+      quote: "Working with Eldeco feels like a partnership; as we continued to use their tool and found more use cases, our feature requests quickly found.",
+      name: "Alonso D. Dowson",
+      role: "House Owner"
+    },
+    {
+      quote: "The attention to detail in their designs is exceptional. Every corner of our new home feels thoughtfully planned and executed to perfection.",
+      name: "Sarah J. Miller",
+      role: "Interior Designer"
+    },
+    {
+      quote: "I've worked with many developers, but the transparency and quality provided by the team here is truly in a league of its own.",
+      name: "Michael Chen",
+      role: "Real Estate Investor"
+    }
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveTestimonial((prev) => (prev + 1) % testimonials.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, [testimonials.length]);
+
+  return (
+    <section className="w-full bg-[#F9F9F9] py-20 md:py-24 overflow-hidden">
+      <div className="max-w-[1400px] mx-auto px-6">
+        <h2 className="text-[44px] md:text-[52px] font-medium leading-[1.1] text-black mb-12 max-w-2xl tracking-tight">
+          Happy Users Journey & <br /> Feedbacks Here.
+        </h2>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-2">
+          {/* Column 1 */}
+          <div className="flex flex-col gap-2">
+            {/* Stats Card */}
+            <div className="bg-white rounded-2xl p-6 shadow-xs border border-gray-100 flex flex-col justify-between h-[200px]">
+              <div className="flex items-center justify-between">
+                <div className="flex -space-x-3">
+                  <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop" className="w-9 h-9 rounded-full border-2 border-white object-cover" alt="User" />
+                  <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&h=100&fit=crop" className="w-9 h-9 rounded-full border-2 border-white object-cover" alt="User" />
+                  <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop" className="w-9 h-9 rounded-full border-2 border-white object-cover" alt="User" />
+                  <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop" className="w-9 h-9 rounded-full border-2 border-white object-cover" alt="User" />
+                </div>
+                <div className="flex text-[#D4AF37] gap-1">
+                  {[...Array(5)].map((_, i) => (
+                    <svg key={i} className="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                  ))}
+                </div>
+              </div>
+              <div className="mt-3">
+                <h3 className="text-[36px] font-medium text-black leading-none mb-2">4.9 / 5.0</h3>
+                <p className="text-[13px] text-gray-500 leading-relaxed">From bustling urban condos to peaceful...</p>
+              </div>
             </div>
             
-            <div className="relative mt-4 flex-1">
-               {/* Large Quote Icon behind */}
-               <div className="absolute top-[-40px] left-[-20px] md:left-[-30px] text-[160px] md:text-[200px] font-serif text-gray-100/60 leading-none select-none z-0 pointer-events-none">
-                 ”
-               </div>
-               
-               <div className="relative z-10 min-h-[280px]">
-                 <AnimatePresence mode="wait">
-                   <motion.div
-                     key={currentIndex}
-                     initial={{ opacity: 0, x: 30 }}
-                     animate={{ opacity: 1, x: 0 }}
-                     exit={{ opacity: 0, x: -30 }}
-                     transition={{ duration: 0.5, ease: "easeInOut" }}
-                     className="flex flex-col"
-                   >
-                     <p className="text-[20px] md:text-[24px] lg:text-[26px] font-serif text-[#333] leading-[1.6] mb-10 max-w-xl">
-                        “{TESTIMONIALS_DATA[currentIndex].quote}”
-                     </p>
-                     <div className="flex items-start gap-5">
-                        <img src={TESTIMONIALS_DATA[currentIndex].image} alt={TESTIMONIALS_DATA[currentIndex].name} className="w-16 h-16 rounded-full object-cover shadow-sm" />
-                        <div>
-                           <h4 className="text-[18px] font-serif text-[#111] font-semibold">{TESTIMONIALS_DATA[currentIndex].name}</h4>
-                           <p className="text-[13px] text-gray-500 mt-0.5">{TESTIMONIALS_DATA[currentIndex].title}</p>
-                           <div className="flex text-yellow-400 gap-1 mt-1.5">
-                             {Array.from({ length: TESTIMONIALS_DATA[currentIndex].stars }).map((_, i) => (
-                               <svg key={i} className="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20">
-                                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                               </svg>
-                             ))}
-                           </div>
-                           <div className="flex gap-2.5 mt-6 items-center">
-                              {TESTIMONIALS_DATA.map((_, idx) => (
-                                <button
-                                  key={idx}
-                                  onClick={() => setCurrentIndex(idx)}
-                                  className={`transition-all duration-300 rounded-full ${
-                                    currentIndex === idx 
-                                      ? 'w-6 h-[7px] border border-gray-400 bg-transparent' 
-                                      : 'w-[7px] h-[7px] bg-gray-200 hover:bg-gray-300'
-                                  }`}
-                                  aria-label={`Go to testimonial ${idx + 1}`}
-                                />
-                              ))}
-                           </div>
-                        </div>
-                     </div>
-                   </motion.div>
-                 </AnimatePresence>
-               </div>
+            {/* Hover Image Card - Toggle Reveal */}
+            <div 
+              onMouseEnter={() => setIsImageRevealed(!isImageRevealed)}
+              className="relative w-full h-[460px] rounded-2xl overflow-hidden cursor-pointer shadow-md bg-gray-100"
+            >
+              {/* Revealed Image (Bottom) */}
+              <div className="absolute inset-0 z-0">
+                <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" className="w-full h-full object-cover" alt="House Exterior Alternative" />
+              </div>
+              
+              {/* Cover Image Slices (Top) */}
+              <div className="absolute inset-0 z-10 pointer-events-none">
+                {[...Array(12)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    animate={isImageRevealed ? { 
+                      opacity: 0, x: 40, y: -40, scale: 1.1 
+                    } : { 
+                      opacity: 1, x: 0, y: 0, scale: 1 
+                    }}
+                    transition={{ 
+                      delay: isImageRevealed ? i * 0.04 : (11 - i) * 0.03, 
+                      duration: 0.6, 
+                      ease: [0.19, 1, 0.22, 1] 
+                    }}
+                    className="absolute inset-0 w-full h-full"
+                    style={{
+                      clipPath: `polygon(${(i - 1) * 10}% 0%, ${(i + 1) * 10}% 0%, ${i * 10}% 100%, ${(i - 2) * 10}% 100%)`,
+                    }}
+                  >
+                    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" className="w-full h-full object-cover" alt="House Exterior" />
+                  </motion.div>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
-        
-        {/* Bottom text */}
-        <div className="mt-24 md:mt-32 flex items-center justify-center">
-           <div className="h-px bg-gray-200 flex-1 max-w-[300px] lg:max-w-[400px]"></div>
-           <span className="px-6 text-[12px] md:text-[13px] font-bold text-[#111] tracking-wide text-center">Trusted by 900+ Premium Real Estate Clients</span>
-           <div className="h-px bg-gray-200 flex-1 max-w-[300px] lg:max-w-[400px]"></div>
+
+          {/* Column 2 */}
+          <div className="flex flex-col gap-2">
+            {/* Top Image with Play Button */}
+            <div className="relative w-full h-[360px] rounded-2xl overflow-hidden shadow-md">
+              <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80" className="w-full h-full object-cover" alt="Modern House" />
+              <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent pointer-events-none" />
+              <div className="absolute bottom-6 left-6 text-white">
+                <h4 className="text-[18px] font-medium mb-1">Alonso D. Dowson</h4>
+                <p className="text-[12px] text-white/70">House Owner</p>
+              </div>
+            </div>
+
+            {/* Black Testimonial Card - Animated Content */}
+            <div className="bg-[#050505] text-white rounded-2xl p-8 shadow-xl flex flex-col justify-between h-[300px] relative overflow-hidden">
+              <div className="absolute bottom-[-30px] right-2 text-[120px] leading-none text-white/5 font-serif pointer-events-none">”</div>
+              <div className="relative z-10 flex-1 flex flex-col justify-between">
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeTestimonial}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.5 }}
+                  >
+                    <div className="flex text-[#D4AF37] gap-1 mb-6">
+                      {[...Array(5)].map((_, i) => (
+                        <svg key={i} className="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
+                      ))}
+                    </div>
+                    <p className="text-[15px] leading-relaxed text-white/90 font-light italic">
+                      “ {testimonials[activeTestimonial].quote} ”
+                    </p>
+                  </motion.div>
+                </AnimatePresence>
+
+                <AnimatePresence mode="wait">
+                  <motion.div
+                    key={activeTestimonial}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.5 }}
+                    className="mt-6"
+                  >
+                    <h4 className="text-[16px] font-medium text-white">{testimonials[activeTestimonial].name}</h4>
+                    <p className="text-[12px] text-white/50 mt-1">{testimonials[activeTestimonial].role}</p>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            </div>
+          </div>
+
+          {/* Column 3 */}
+          <div className="flex flex-col gap-2">
+            {/* Tags Card */}
+            <div className="bg-[#A98C66] rounded-2xl p-5 shadow-md flex flex-col justify-center gap-2 h-[180px]">
+              <div className="bg-white rounded-full px-4 py-1 w-max shadow-sm transition-transform hover:-translate-y-1 cursor-default">
+                <span className="text-[10px] font-semibold text-black"><span className="text-[#A98C66]">Alonso D.</span> — Quality design</span>
+              </div>
+              <div className="bg-white rounded-full px-4 py-1 w-max shadow-sm transition-transform hover:-translate-y-1 cursor-default ml-4">
+                <span className="text-[10px] font-semibold text-black"><span className="text-[#A98C66]">Miranda</span> — One of the best development</span>
+              </div>
+              <div className="bg-white rounded-full px-4 py-1 w-max shadow-sm transition-transform hover:-translate-y-1 cursor-default">
+                <span className="text-[10px] font-semibold text-black"><span className="text-[#A98C66]">Nelson M.</span> — Unbelievable & next-gen design team</span>
+              </div>
+              <div className="bg-white rounded-full px-4 py-1 w-max shadow-sm transition-transform hover:-translate-y-1 cursor-default ml-2">
+                <span className="text-[10px] font-semibold text-black"><span className="text-[#A98C66]">Alvon B.</span> — Better quality design, communication ui & ux</span>
+              </div>
+            </div>
+
+            {/* Marquee Image Card */}
+            <div className="relative w-full h-[348px] rounded-2xl overflow-hidden shadow-md group">
+              <img src="https://images.unsplash.com/photo-1600566753190-17f54e06c58c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" alt="Futuristic House" />
+              <div className="absolute inset-0 bg-black/10"></div>
+              <div className="absolute bottom-8 left-0 right-0 overflow-hidden pointer-events-none">
+                <motion.div 
+                  animate={{ x: ["0%", "-50%"] }} 
+                  transition={{ repeat: Infinity, ease: "linear", duration: 10 }}
+                  className="flex whitespace-nowrap"
+                >
+                  <span className="text-[44px] md:text-[50px] font-bold text-white tracking-tight pr-5">
+                    Quality real estate solutions Quality real estate solutions Quality real estate solutions
+                  </span>
+                  <span className="text-[44px] md:text-[50px] font-bold text-white tracking-tight pr-5">
+                    Quality real estate solutions Quality real estate solutions Quality real estate solutions
+                  </span>
+                </motion.div>
+              </div>
+            </div>
+
+            {/* Percent Card */}
+            <div className="bg-white rounded-2xl p-4 shadow-xs border border-gray-100 flex flex-col justify-center items-center h-[124px] relative overflow-hidden text-center">
+              <p className="text-[12px] text-gray-500 font-medium mb-0 relative z-10">Quality real estate solutions</p>
+              <h3 className="text-[64px] md:text-[72px] leading-none font-medium text-transparent relative z-10 tracking-tighter" 
+                  style={{ WebkitTextStroke: "1px #CDBA93", opacity: 0.9 }}>
+                <AnimatedCounter from={50} to={98.8} duration={2.5} decimals={1} />%
+              </h3>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -588,5 +847,294 @@ function AmenitiesSection() {
 
       </div>
     </section>
+  );
+}
+function LocationSection() {
+  return (
+    <section className="w-full bg-white py-20 md:py-32 flex flex-col items-center justify-center">
+      <div className="max-w-[1400px] mx-auto px-6 w-full flex flex-col">
+        <div className="w-full relative flex justify-center mb-24">
+          <img 
+            src="/image.png" 
+            alt="Map Location" 
+            className="w-full max-w-[1000px] h-auto max-h-[600px] object-contain mix-blend-multiply opacity-95 transition-all duration-700 hover:opacity-100 hover:scale-105"
+          />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+
+function MarqueeSection() {
+  return (
+    <section className="w-full bg-white pt-10 pb-4 overflow-hidden">
+      <div className="flex whitespace-nowrap w-full">
+        <motion.div 
+          className="flex items-center"
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ duration: 20, ease: "linear", repeat: Infinity }}
+        >
+          {[...Array(10)].map((_, i) => (
+            <div key={i} className="flex items-center">
+              <span className="text-black text-6xl md:text-[90px] font-bold tracking-tighter px-8 md:px-12">Talk with us!</span>
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" className="text-black opacity-20"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+            </div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+}
+
+function ContactSection() {
+  const [isThankYouOpen, setIsThankYouOpen] = useState(false);
+  const [formErrors, setFormErrors] = useState<{ name?: string; email?: string; phone?: string }>({});
+
+  const validateName = (value: string) => value.trim().length > 0;
+  const validateEmail = (value: string) => /\S+@\S+\.\S+/.test(value.trim());
+  const validatePhone = (value: string) => {
+    const digits = value.replace(/\D/g, "");
+    return digits.length >= 10 && digits.length <= 15;
+  };
+
+  return (
+    <section className="w-full bg-white py-20 md:py-32 flex flex-col items-center justify-center">
+      <div className="max-w-[1400px] mx-auto px-6 w-full flex flex-col">
+        {/* Premium Contact Form */}
+        <motion.div 
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="w-full max-w-5xl mx-auto bg-zinc-950 rounded-3xl p-10 md:p-16 shadow-2xl relative overflow-hidden mt-10 border border-white/10"
+        >
+          {/* Decorative background glow */}
+          <div className="absolute top-[-100px] right-[-100px] w-96 h-96 bg-emerald-400 rounded-full mix-blend-screen filter blur-[120px] opacity-12 pointer-events-none"></div>
+          <div className="absolute bottom-[-100px] left-[-100px] w-96 h-96 bg-white rounded-full mix-blend-screen filter blur-[120px] opacity-8 pointer-events-none"></div>
+          
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <h3 className="text-4xl md:text-5xl font-medium text-white mb-6 leading-tight tracking-tight">Your Limitless<br/><span className="bg-gradient-to-r from-emerald-300 via-white to-emerald-400 bg-clip-text text-transparent">Life Awaits.</span></h3>
+              <p className="text-gray-400 text-lg font-light leading-relaxed mb-8 max-w-md">
+                Book your dream home at Eldeco Latitude 27 today and experience a lifestyle crafted for the future. Schedule a site visit, get price details, or talk to our expert.
+              </p>
+            </div>
+            
+            <form
+              className="flex flex-col gap-8 w-full max-w-md ml-auto"
+              onSubmit={(event) => {
+                event.preventDefault();
+                const form = event.currentTarget;
+                const nameValue = String(new FormData(form).get("name") ?? "");
+                const emailValue = String(new FormData(form).get("email") ?? "");
+                const phoneValue = String(new FormData(form).get("phone") ?? "");
+
+                const nextErrors: { name?: string; email?: string; phone?: string } = {};
+
+                if (!validateName(nameValue)) {
+                  nextErrors.name = "Enter your full name.";
+                }
+
+                if (!validateEmail(emailValue)) {
+                  nextErrors.email = "Enter a valid email address.";
+                }
+
+                if (!validatePhone(phoneValue)) {
+                  nextErrors.phone = "Enter a valid mobile number.";
+                }
+
+                setFormErrors(nextErrors);
+
+                if (Object.keys(nextErrors).length > 0) {
+                  return;
+                }
+
+                setIsThankYouOpen(true);
+                form.reset();
+                setFormErrors({});
+              }}
+            >
+              <div className="relative z-0 w-full group">
+                <input type="text" name="name" id="name" className="block py-3 px-0 w-full text-lg text-white bg-transparent border-0 border-b border-white/15 appearance-none focus:outline-none focus:ring-0 focus:border-white/35 peer transition-colors" placeholder=" " required />
+                <label htmlFor="name" className="peer-focus:font-medium absolute text-lg text-gray-500 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-white peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">Full Name</label>
+                <p className="mt-2 text-xs text-white/35">Enter your name as it appears on your enquiry.</p>
+                {formErrors.name && <p className="mt-2 text-xs text-rose-400">{formErrors.name}</p>}
+              </div>
+
+              <div className="relative z-0 w-full group">
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  inputMode="email"
+                  onChange={() => setFormErrors((current) => ({ ...current, email: undefined }))}
+                  className="block py-3 px-0 w-full text-lg text-white bg-transparent border-0 border-b border-white/15 appearance-none focus:outline-none focus:ring-0 focus:border-white/35 peer transition-colors"
+                  placeholder=" "
+                  required
+                />
+                <label htmlFor="email" className="peer-focus:font-medium absolute text-lg text-gray-500 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-white peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">Email Address</label>
+                <p className="mt-2 text-xs text-white/35">We’ll send the brochure and payment details here.</p>
+                {formErrors.email && <p className="mt-2 text-xs text-rose-400">{formErrors.email}</p>}
+              </div>
+
+              <div className="relative z-0 w-full group">
+                <input
+                  type="tel"
+                  name="phone"
+                  id="phone"
+                  inputMode="numeric"
+                  pattern="[0-9]*"
+                  maxLength={15}
+                  onChange={(event) => {
+                    const digitsOnly = event.currentTarget.value.replace(/\D/g, "");
+                    event.currentTarget.value = digitsOnly;
+                    setFormErrors((current) => ({ ...current, phone: undefined }));
+                  }}
+                  className="block py-3 px-0 w-full text-lg text-white bg-transparent border-0 border-b border-white/15 appearance-none focus:outline-none focus:ring-0 focus:border-white/35 peer transition-colors"
+                  placeholder=" "
+                  required
+                />
+                <label htmlFor="phone" className="peer-focus:font-medium absolute text-lg text-gray-500 duration-300 transform -translate-y-8 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-white peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-8">Mobile Number</label>
+                <p className="mt-2 text-xs text-white/35">A premium advisor will call you back shortly.</p>
+                {formErrors.phone && <p className="mt-2 text-xs text-rose-400">{formErrors.phone}</p>}
+              </div>
+
+              <motion.button 
+                type="submit"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                className="mt-6 w-full bg-white text-black font-semibold text-sm tracking-widest uppercase py-4 rounded-xl hover:bg-emerald-300 transition-colors duration-300 shadow-[0_0_20px_rgba(255,255,255,0.08)] hover:shadow-[0_0_30px_rgba(52,211,153,0.14)]"
+              >
+                Schedule a Site Visit
+              </motion.button>
+            </form>
+          </div>
+        </motion.div>
+      </div>
+
+      <AnimatePresence>
+        {isThankYouOpen && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-black/65 backdrop-blur-md"
+              onClick={() => setIsThankYouOpen(false)}
+            />
+
+            <motion.div
+              initial={{ opacity: 0, y: 20, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.96 }}
+              transition={{ type: "spring", stiffness: 120, damping: 18 }}
+              className="relative z-10 w-full max-w-md overflow-hidden rounded-[2rem] border border-white/15 bg-zinc-950 p-8 md:p-10 shadow-[0_30px_80px_rgba(0,0,0,0.6)]"
+            >
+              <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(52,211,153,0.12),transparent_42%)] pointer-events-none" />
+
+              <div className="relative flex flex-col items-center text-center">
+                <div className="inline-flex h-14 w-14 items-center justify-center rounded-full border border-white/15 bg-white/5 shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-emerald-300">
+                    <path d="M20 6L9 17l-5-5" />
+                  </svg>
+                </div>
+                <h3 className="mt-6 text-3xl md:text-4xl font-medium tracking-tight text-white leading-none">
+                  Thank you.
+                </h3>
+                <p className="mt-4 text-sm md:text-base leading-relaxed text-white/72">
+                  Our team will respond shortly.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setIsThankYouOpen(false)}
+                  className="mt-8 w-full rounded-full border border-white/15 bg-white text-zinc-950 px-6 py-3 text-sm font-semibold tracking-[0.2em] uppercase transition-transform duration-300 hover:scale-[1.01] active:scale-[0.99]"
+                  aria-label="Close thank you popup"
+                >
+                  OK
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+    </section>
+  );
+}
+
+function FooterSection() {
+  return (
+    <footer className="w-full bg-[#050505] pt-24 pb-12 flex flex-col items-center justify-center relative">
+      <div className="max-w-[1400px] mx-auto px-6 w-full flex flex-col">
+        {/* Top Content */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-8 items-center mb-24">
+          
+          {/* Left Column */}
+          <div className="flex flex-col items-center md:items-start text-center md:text-left gap-6">
+            <h4 className="text-white/60 text-sm tracking-wide font-light">Catch us here</h4>
+            <div className="flex flex-col gap-4 text-white text-base font-light">
+              <p>Eldeco City, IIM Road, Lucknow</p>
+              <a href="mailto:info@eldeco.in" className="hover:text-[#CDBA93] transition-colors">info@eldeco.in</a>
+              <p>+91 9821255300</p>
+            </div>
+          </div>
+
+          {/* Middle Column - Google Map Embed */}
+          <div className="w-full h-[250px] md:h-[300px] rounded-2xl overflow-hidden shadow-2xl relative group">
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.25280946272!2d-74.1448332152011!3d40.69763123307525!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sin!4v1714578120000!5m2!1sen!2sin" 
+              width="100%" 
+              height="100%" 
+              style={{ border: 0 }} 
+              allowFullScreen={true} 
+              loading="lazy" 
+              referrerPolicy="no-referrer-when-downgrade"
+              className="absolute inset-0 grayscale contrast-125 opacity-80 group-hover:opacity-100 transition-opacity duration-500"
+            ></iframe>
+          </div>
+
+          {/* Right Column */}
+          <div className="flex flex-col items-center md:items-end text-center md:text-right gap-6">
+            <h4 className="text-white/60 text-sm tracking-wide font-light">Opening hours</h4>
+            <div className="flex flex-col gap-4 text-white text-base font-light">
+              <p>Mon: <span className="text-white/80">10:00am — 09:00pm</span></p>
+              <p>Thu — Sat: <span className="text-white/80">10:00am — 09:00pm</span></p>
+              <p>Sunday: <span className="text-white/80">close</span></p>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="w-full border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
+          <p className="text-white/60 text-sm font-light text-center md:text-left">
+            © All rights reserved <br className="md:hidden"/> by <span className="text-white">Eldeco Latitude 27</span>
+          </p>
+
+          <div className="flex items-center gap-6">
+            <a href="#" className="text-white/60 hover:text-white transition-colors">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+            </a>
+            <a href="#" className="text-white/60 hover:text-white transition-colors">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z"></path><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"></path></svg>
+            </a>
+            <a href="#" className="text-white/60 hover:text-white transition-colors">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
+            </a>
+            <a href="#" className="text-white/60 hover:text-white transition-colors">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+            </a>
+          </div>
+
+          <div className="flex items-center gap-8">
+            <p className="hidden md:block text-white/60 text-sm font-light">
+              Designed & developed by <span className="text-[#CDBA93] font-medium tracking-wide">Zlaark</span>
+            </p>
+            <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white/60 hover:text-white hover:border-white transition-all group">
+              <ArrowUp size={16} className="group-hover:-translate-y-1 transition-transform" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </footer>
   );
 }
