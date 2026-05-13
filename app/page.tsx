@@ -3,6 +3,8 @@
 import { useEffect, useState, useRef } from "react";
 import { ChevronDown, Phone, ArrowRight, Play, ChevronRight, Waves, Dumbbell, Users, TreePine, Smile, Activity, ArrowUp, Menu, X, Droplets, Trees, ArrowUpFromLine, Layout, Wind, Club, MapPin, Plane, ShieldCheck, Mail, Clock, CheckCheck } from "lucide-react";
 import { motion, useInView, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 
 function AnimatedCounter({ from = 0, to, duration = 2, decimals = 0 }: { from?: number, to: number, duration?: number, decimals?: number }) {
@@ -28,91 +30,11 @@ function AnimatedCounter({ from = 0, to, duration = 2, decimals = 0 }: { from?: 
 }
 
 export default function Home() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   return (
     <div className="min-h-screen flex flex-col font-sans bg-background text-ink" suppressHydrationWarning>
-      <header className="w-full bg-white/95 border-b border-brand-soft z-50 relative backdrop-blur-sm">
-        <div className="max-w-[1400px] mx-auto px-6 h-20 md:h-24 flex items-center justify-between">
-          <div className="flex items-center">
-            <img src="/logoeldeco.png" alt="Eldeco Logo" className="h-7 md:h-10 w-auto object-contain" />
-          </div>
-          <nav className="hidden lg:flex items-center gap-10 text-[13px] font-semibold tracking-[0.15em] text-ink uppercase">
-            <a href="#" className="hover:text-brand transition-colors">HOME</a>
-            <a href="#" className="hover:text-brand transition-colors">OVERVIEW</a>
-            <a href="#" className="hover:text-brand transition-colors">CONFIGURATION</a>
-            <a href="#" className="hover:text-brand transition-colors">GALLERY</a>
-            <a href="#" className="hover:text-brand transition-colors">LOCATION</a>
-            <a href="#" className="hover:text-brand transition-colors">CONTACT US</a>
-          </nav>
-          <div className="hidden md:flex items-center gap-4">
-            <div className="w-12 h-12 bg-brand-soft rounded-full flex items-center justify-center text-brand">
-              <Phone size={18} fill="currentColor" />
-            </div>
-            <div className="flex flex-col items-end">
-              <span className="text-[10px] font-bold text-brand-strong tracking-widest uppercase mb-1">Call Us Now</span>
-              <span className="text-[14px] font-bold bg-brand text-white px-4 py-1.5 rounded-full shadow-sm">+91 9821255300</span>
-            </div>
-          </div>
-          
-          <button 
-            suppressHydrationWarning
-            className="lg:hidden p-2 text-ink"
-            onClick={() => setIsMobileMenuOpen(true)}
-          >
-            <Menu size={28} />
-          </button>
-        </div>
+      <Header />
 
-        {/* Mobile Menu Overlay */}
-        <AnimatePresence>
-          {isMobileMenuOpen && (
-            <>
-              <motion.div 
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="fixed inset-0 bg-black/60 backdrop-blur-sm z-60"
-              />
-              <motion.div 
-                initial={{ x: "100%" }}
-                animate={{ x: 0 }}
-                exit={{ x: "100%" }}
-                transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                className="fixed top-0 right-0 bottom-0 w-[300px] bg-white z-70 p-8 flex flex-col"
-              >
-                <div className="flex justify-between items-center mb-12">
-                  <img src="/logoeldeco.png" alt="Eldeco Logo" className="h-8 w-auto object-contain" />
-                  <button suppressHydrationWarning onClick={() => setIsMobileMenuOpen(false)} className="p-2 text-ink">
-                    <X size={28} />
-                  </button>
-                </div>
-                <nav className="flex flex-col gap-6 text-[15px] font-semibold tracking-widest text-ink uppercase">
-                  <a href="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-brand transition-colors">HOME</a>
-                  <a href="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-brand transition-colors">OVERVIEW</a>
-                  <a href="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-brand transition-colors">CONFIGURATION</a>
-                  <a href="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-brand transition-colors">GALLERY</a>
-                  <a href="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-brand transition-colors">LOCATION</a>
-                  <a href="#" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-brand transition-colors">CONTACT US</a>
-                </nav>
-                <div className="mt-auto pt-8 border-t border-gray-100">
-                  <div className="flex items-center gap-4">
-                    <div className="w-10 h-10 bg-brand-soft rounded-full flex items-center justify-center text-brand">
-                      <Phone size={16} fill="currentColor" />
-                    </div>
-                    <div className="flex flex-col">
-                      <span className="text-[10px] font-bold text-brand-strong tracking-widest uppercase">Call Us Now</span>
-                      <span className="text-[14px] font-medium text-white">+91 9821255300</span>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            </>
-          )}
-        </AnimatePresence>
-      </header>
-
-      <section className="relative w-full h-auto md:h-[110vh] md:min-h-[900px] overflow-hidden bg-white md:bg-linear-to-b md:from-[#f6faf7] md:via-[#edf4f0] md:to-[#dbe7e0] flex flex-col md:block">
+      <section id="home" className="relative w-full h-auto md:h-[110vh] md:min-h-[900px] overflow-hidden bg-white md:bg-linear-to-b md:from-[#f6faf7] md:via-[#edf4f0] md:to-[#dbe7e0] flex flex-col md:block">
         {/* Mobile Banner - Natural Aspect Ratio */}
         <div className="block md:hidden w-full order-1 relative z-10">
           <img src="/mobile-banner.jpeg" alt="Luxury Apartments" className="w-full h-auto" />
@@ -171,7 +93,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="w-full bg-white text-black py-12 md:py-20 relative overflow-hidden">
+      <section id="overview" className="w-full bg-white text-black py-12 md:py-20 relative overflow-hidden">
         {/* Subtle background texture/elements */}
         <div className="absolute top-0 right-0 w-1/3 h-full bg-linear-to-l from-[#f7faf8] to-transparent pointer-events-none" />
         
@@ -402,7 +324,7 @@ export default function Home() {
       <TestimonialSection />
       <MarqueeSection />
       <ContactSection />
-      <FooterSection />
+      <Footer />
     </div>
   );
 }
@@ -450,7 +372,7 @@ function CarouselSection() {
   const handleNext = () => setCurrentIndex((prev) => (prev + 1) % (CAROUSEL_DATA.length - 1));
 
   return (
-    <section className="w-full bg-brand text-white py-24 md:py-32 overflow-hidden relative">
+    <section id="gallery" className="w-full bg-brand text-white py-24 md:py-32 overflow-hidden relative">
       <div className="max-w-[1400px] mx-auto px-6 mb-16">
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-10">
           <div className="max-w-2xl">
@@ -660,7 +582,7 @@ function FlatLayoutsSection() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <section className="w-full bg-white pt-20 pb-16 relative">
+    <section id="configuration" className="w-full bg-white pt-20 pb-16 relative">
       <div className="max-w-[1400px] mx-auto px-6 mb-12">
         <div className="flex flex-col items-start text-left">
           <motion.h4 
@@ -1189,7 +1111,7 @@ function AmenitiesSection() {
 }
 function LocationSection() {
   return (
-    <section className="w-full bg-white py-20 md:py-32 overflow-hidden relative">
+    <section id="location" className="w-full bg-white py-20 md:py-32 overflow-hidden relative">
       <div className="max-w-[1400px] mx-auto px-6 mb-12 md:mb-16">
         <div className="flex flex-col items-start text-left">
           <motion.div
@@ -1267,7 +1189,7 @@ function ContactSection() {
   };
 
   return (
-    <section className="w-full bg-white py-20 md:py-32 flex flex-col items-center justify-center relative">
+    <section id="contact" className="w-full bg-white py-20 md:py-32 flex flex-col items-center justify-center relative">
       <div className="max-w-[1400px] mx-auto px-6 w-full flex flex-col">
         {/* Premium Contact Form */}
         <motion.div 
@@ -1434,79 +1356,4 @@ function ContactSection() {
   );
 }
 
-function FooterSection() {
-  return (
-    <footer className="w-full bg-[#050505] pt-24 pb-12 flex flex-col items-center justify-center relative">
-      <div className="max-w-[1400px] mx-auto px-6 w-full flex flex-col">
-        {/* Top Content */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-16 md:gap-8 items-center mb-24">
-          
-          {/* Left Column */}
-          <div className="flex flex-col items-center md:items-start text-center md:text-left gap-6">
-            <h4 className="text-white text-sm tracking-wide font-light">Catch us here</h4>
-            <div className="flex flex-col gap-4 text-white text-base font-light">
-              <p>Eldeco City, IIM Road, Lucknow</p>
-              <a href="mailto:info@eldeco.in" className="hover:text-[#CDBA93] transition-colors">info@eldeco.in</a>
-              <p>+91 9821255300</p>
-            </div>
-          </div>
 
-          {/* Middle Column - Google Map Embed */}
-          <div className="w-full h-[250px] md:h-[300px] rounded-2xl overflow-hidden shadow-2xl relative group">
-            <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1779.623123456789!2d80.9170797!3d26.9422852!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x399956905081d961:0xb0ad8c9b855de525!2sEldeco%20city!5e0!3m2!1sen!2sin!4v1714578120000!5m2!1sen!2sin" 
-              width="100%" 
-              height="100%" 
-              style={{ border: 0 }} 
-              allowFullScreen={true} 
-              loading="lazy" 
-              referrerPolicy="no-referrer-when-downgrade"
-              className="absolute inset-0 grayscale contrast-125 opacity-80 group-hover:opacity-100 transition-opacity duration-500"
-            ></iframe>
-          </div>
-
-          {/* Right Column */}
-          <div className="flex flex-col items-center md:items-end text-center md:text-right gap-6">
-            <h4 className="text-white text-sm tracking-wide font-light">Opening hours</h4>
-            <div className="flex flex-col gap-4 text-white text-base font-light">
-              <p>Mon: <span className="text-white">10:00am — 09:00pm</span></p>
-              <p>Thu — Sat: <span className="text-white">10:00am — 09:00pm</span></p>
-              <p>Sunday: <span className="text-white">close</span></p>
-            </div>
-          </div>
-        </div>
-
-        {/* Bottom Bar */}
-        <div className="w-full border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-white text-sm font-light text-center md:text-left">
-            © All rights reserved <br className="md:hidden"/> by <span className="text-white">Eldeco Latitude 27</span>
-          </p>
-
-          <div className="flex items-center gap-6">
-            <a href="#" className="text-white hover:text-white transition-colors">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
-            </a>
-            <a href="#" className="text-white hover:text-white transition-colors">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z"></path><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"></path></svg>
-            </a>
-            <a href="#" className="text-white hover:text-white transition-colors">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg>
-            </a>
-            <a href="#" className="text-white hover:text-white transition-colors">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-            </a>
-          </div>
-
-          <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8 order-last md:order-none">
-            <p className="text-white/60 text-[11px] md:text-sm font-light text-center">
-              Designed & developed by <span className="text-[#CDBA93] font-medium tracking-wide">Zlaark</span>
-            </p>
-            <button suppressHydrationWarning onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:text-white hover:border-white transition-all group">
-              <ArrowUp size={16} className="group-hover:-translate-y-1 transition-transform" />
-            </button>
-          </div>
-        </div>
-      </div>
-    </footer>
-  );
-}
