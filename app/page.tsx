@@ -55,6 +55,7 @@ export default function Home() {
           </div>
           
           <button 
+            suppressHydrationWarning
             className="lg:hidden p-2 text-ink"
             onClick={() => setIsMobileMenuOpen(true)}
           >
@@ -82,7 +83,7 @@ export default function Home() {
               >
                 <div className="flex justify-between items-center mb-12">
                   <img src="/logoeldeco.png" alt="Eldeco Logo" className="h-8 w-auto object-contain" />
-                  <button onClick={() => setIsMobileMenuOpen(false)} className="p-2 text-ink">
+                  <button suppressHydrationWarning onClick={() => setIsMobileMenuOpen(false)} className="p-2 text-ink">
                     <X size={28} />
                   </button>
                 </div>
@@ -152,13 +153,13 @@ export default function Home() {
               </p>
               <div className="w-16 h-[3px] bg-brand md:bg-[#9fd7c1] mt-8 mb-8"></div>
               <div className="flex flex-wrap gap-4">
-                <button className="group flex items-center justify-between bg-brand text-white rounded-full pl-6 pr-2 py-2 gap-6 hover:bg-brand-strong transition-all duration-300 shadow-xl">
+                <button suppressHydrationWarning className="group flex items-center justify-between bg-brand text-white rounded-full pl-6 pr-2 py-2 gap-6 hover:bg-brand-strong transition-all duration-300 shadow-xl">
                   <span className="uppercase tracking-[0.2em] text-[10px] font-bold">Book a Site Visit</span>
                   <div className="bg-white text-brand w-8 h-8 rounded-full flex items-center justify-center transition-transform duration-500 group-hover:-rotate-45">
                     <ArrowRight size={14} />
                   </div>
                 </button>
-                <button className="group flex items-center justify-between bg-white text-ink rounded-full pl-6 pr-2 py-2 gap-6 hover:bg-brand-soft transition-all duration-300 shadow-xl border border-brand-soft">
+                <button suppressHydrationWarning className="group flex items-center justify-between bg-white text-ink rounded-full pl-6 pr-2 py-2 gap-6 hover:bg-brand-soft transition-all duration-300 shadow-xl border border-brand-soft">
                   <span className="uppercase tracking-[0.2em] text-[10px] font-bold">Download Brochure</span>
                   <div className="bg-teal-deep text-white w-8 h-8 rounded-full flex items-center justify-center transition-transform duration-500 group-hover:translate-y-1">
                     <ArrowRight size={14} className="rotate-90" />
@@ -855,7 +856,7 @@ function TestimonialSection() {
   }, []);
 
   return (
-    <section className="w-full bg-[#F9F9F9] py-20 md:py-24 overflow-hidden">
+    <section className="w-full bg-[#F9F9F9] py-20 md:py-24 overflow-hidden relative">
       <div className="max-w-[1400px] mx-auto px-6">
         <div className="flex flex-col items-start text-left mb-16 md:mb-20">
           <motion.div
@@ -1095,7 +1096,7 @@ function AmenitiesSection() {
   const [activeTab, setActiveTab] = useState(0);
 
   return (
-    <section className="w-full bg-white py-24 md:py-32">
+    <section className="w-full bg-white py-24 md:py-32 relative">
       <div className="max-w-[1400px] mx-auto px-6">
         <div className="flex flex-col items-start text-left mb-12 md:mb-16">
           <motion.div
@@ -1188,7 +1189,7 @@ function AmenitiesSection() {
 }
 function LocationSection() {
   return (
-    <section className="w-full bg-white py-20 md:py-32 overflow-hidden">
+    <section className="w-full bg-white py-20 md:py-32 overflow-hidden relative">
       <div className="max-w-[1400px] mx-auto px-6 mb-12 md:mb-16">
         <div className="flex flex-col items-start text-left">
           <motion.div
@@ -1266,7 +1267,7 @@ function ContactSection() {
   };
 
   return (
-    <section className="w-full bg-white py-20 md:py-32 flex flex-col items-center justify-center">
+    <section className="w-full bg-white py-20 md:py-32 flex flex-col items-center justify-center relative">
       <div className="max-w-[1400px] mx-auto px-6 w-full flex flex-col">
         {/* Premium Contact Form */}
         <motion.div 
@@ -1416,6 +1417,7 @@ function ContactSection() {
                   Our team will respond shortly.
                 </p>
                 <button
+                  suppressHydrationWarning
                   type="button"
                   onClick={() => setIsThankYouOpen(false)}
                   className="mt-8 w-full rounded-full border border-white/15 bg-white text-zinc-950 px-6 py-3 text-sm font-semibold tracking-[0.2em] uppercase transition-transform duration-300 hover:scale-[1.01] active:scale-[0.99]"
