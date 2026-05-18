@@ -16,7 +16,7 @@ export default function Footer() {
             <div className="flex flex-col gap-4 text-white text-base font-light">
               <p>Eldeco City, IIM Road, Lucknow</p>
               <a href="mailto:info@eldeco.in" className="hover:text-[#CDBA93] transition-colors">info@eldeco.in</a>
-              <p>+91 9821255300</p>
+              <a href="tel:+919821255300" className="hover:text-[#CDBA93] transition-colors">+91 9821255300</a>
             </div>
           </div>
 
@@ -35,7 +35,7 @@ export default function Footer() {
               ></iframe>
             </div>
             
-            <div className="flex items-center justify-center gap-6">
+            <div className="hidden flex items-center justify-center gap-6">
               <a href="#" className="text-white hover:text-[#CDBA93] transition-colors">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
               </a>
@@ -76,7 +76,7 @@ export default function Footer() {
 
           <div className="flex flex-col md:flex-row items-center gap-4 md:gap-8 order-last md:order-none">
             <p className="text-white/60 text-[11px] md:text-sm font-light text-center">
-              Designed & developed by <span className="text-[#CDBA93] font-medium tracking-wide">Zlaark</span>
+              Designed & developed by <Link href="https://zlaark.com/" target="_blank" rel="noopener noreferrer" className="text-[#CDBA93] font-medium tracking-wide hover:text-white transition-colors">Zlaark</Link>
             </p>
             <button suppressHydrationWarning onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center text-white hover:text-white hover:border-white transition-all group">
               <ArrowUp size={16} className="group-hover:-translate-y-1 transition-transform" />

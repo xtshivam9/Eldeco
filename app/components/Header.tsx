@@ -25,7 +25,7 @@ export default function Header() {
         variants={{ visible: { y: 0 }, hidden: { y: "-100%" } }}
         animate={hidden ? "hidden" : "visible"}
         transition={{ duration: 0.35, ease: "easeInOut" }}
-        className="fixed top-0 left-0 right-0 w-full bg-white/95 border-b border-brand-soft z-50 backdrop-blur-sm shadow-sm"
+        className="fixed top-0 left-0 right-0 w-full bg-white/95 border-b-4 border-brand z-50 backdrop-blur-sm shadow-sm"
       >
         <div className="max-w-[1400px] mx-auto px-6 h-20 md:h-24 flex items-center justify-between">
           <div className="flex items-center">
@@ -34,22 +34,33 @@ export default function Header() {
             </Link>
           </div>
           <nav className="hidden lg:flex items-center gap-10 text-[13px] font-semibold tracking-[0.15em] text-ink uppercase">
-            <Link href="/#home" className="hover:text-brand transition-colors">HOME</Link>
-            <Link href="/#overview" className="hover:text-brand transition-colors">OVERVIEW</Link>
-            <Link href="/#configuration" className="hover:text-brand transition-colors">CONFIGURATION</Link>
-            <Link href="/#gallery" className="hover:text-brand transition-colors">GALLERY</Link>
-            <Link href="/#location" className="hover:text-brand transition-colors">LOCATION</Link>
-            <Link href="/#contact" className="hover:text-brand transition-colors">CONTACT US</Link>
+            {[
+              { label: "HOME", href: "/#home" },
+              { label: "OVERVIEW", href: "/#overview" },
+              { label: "CONFIGURATION", href: "/#configuration" },
+              { label: "GALLERY", href: "/#gallery" },
+              { label: "LOCATION", href: "/#location" },
+              { label: "CONTACT US", href: "/#contact" }
+            ].map((item) => (
+              <Link 
+                key={item.label} 
+                href={item.href} 
+                className="relative py-2 group hover:text-brand transition-colors duration-300"
+              >
+                {item.label}
+                <span className="absolute bottom-0 left-0 w-0 h-[2px] bg-brand transition-all duration-300 group-hover:w-full" />
+              </Link>
+            ))}
           </nav>
-          <div className="hidden md:flex items-center gap-4">
-            <div className="w-12 h-12 bg-brand-soft rounded-full flex items-center justify-center text-brand">
+          <a href="tel:+919821255300" className="hidden md:flex items-center gap-4 group hover:opacity-90 transition-opacity">
+            <div className="w-12 h-12 bg-brand-soft rounded-full flex items-center justify-center text-brand group-hover:bg-brand group-hover:text-white transition-all duration-300">
               <Phone size={18} fill="currentColor" />
             </div>
             <div className="flex flex-col items-end">
               <span className="text-[10px] font-bold text-brand-strong tracking-widest uppercase mb-1">Call Us Now</span>
               <span className="text-[14px] font-bold bg-brand text-white px-4 py-1.5 rounded-full shadow-sm">+91 9821255300</span>
             </div>
-          </div>
+          </a>
           
           <button 
             suppressHydrationWarning
@@ -95,15 +106,15 @@ export default function Header() {
                 <Link href="/#contact" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-brand transition-colors">CONTACT US</Link>
               </nav>
               <div className="mt-auto pt-8 border-t border-gray-100">
-                <div className="flex items-center gap-4">
-                  <div className="w-10 h-10 bg-brand-soft rounded-full flex items-center justify-center text-brand">
+                <a href="tel:+919821255300" className="flex items-center gap-4 group">
+                  <div className="w-10 h-10 bg-brand-soft rounded-full flex items-center justify-center text-brand group-hover:bg-brand group-hover:text-white transition-all duration-300">
                     <Phone size={16} fill="currentColor" />
                   </div>
                   <div className="flex flex-col">
                     <span className="text-[10px] font-bold text-brand-strong tracking-widest uppercase">Call Us Now</span>
-                    <span className="text-[14px] font-medium text-ink">+91 9821255300</span>
+                    <span className="text-[14px] font-medium text-ink group-hover:text-brand transition-colors">+91 9821255300</span>
                   </div>
-                </div>
+                </a>
               </div>
             </motion.div>
           </>
