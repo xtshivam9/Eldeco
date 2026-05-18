@@ -15,6 +15,9 @@ const playfair = Playfair_Display({
 export const metadata: Metadata = {
   title: "Eldeco - Luxury Real Estate",
   description: "Designed for Refined Living Standards",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 export default function RootLayout({
@@ -28,7 +31,7 @@ export default function RootLayout({
       className={`${inter.variable} ${playfair.variable} h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col font-sans bg-[#F4F4F4] text-zinc-900" suppressHydrationWarning>{children}</body>
+      <body className="relative min-h-full flex flex-col font-sans bg-[#F4F4F4] text-zinc-900" suppressHydrationWarning>{children}</body>
     </html>
   );
 }
